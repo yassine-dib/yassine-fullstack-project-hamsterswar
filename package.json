@@ -7,7 +7,7 @@
     "node": "16.x"
   },
   "scripts": {
-    "start": "node server.js",
+    "start": "node backend/server.js",
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview"
