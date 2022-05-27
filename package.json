@@ -9,7 +9,7 @@
   "scripts": {
     "start": "node backend/server.js",
     "dev": "vite",
-    "build": "tsc && vite build",
+    "build": "cd frontend && tsc && vite build",
     "preview": "vite preview"
   },
   "dependencies": {
