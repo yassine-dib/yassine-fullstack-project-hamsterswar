@@ -1,0 +1,62 @@
+.container {
+  text-align: center;
+  padding: 10rem;
+  min-height: 100vh;
+  width: 100vw;
+  background-image: url(../assets/arena.jpeg);
+  background-repeat: no-repeat;
+  background-size: 100%;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: row;
+  text-align: center;
+  align-items: center;
+  gap: 5rem;
+  flex-wrap: nowrap;
+  align-content: center;
+  justify-content: space-evenly;
+  padding-top: 14rem;
+}
+
+.card {
+  box-shadow: 0 0 10px 5px rgba(53, 35, 35, 0.568);
+  border-radius: 5%;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  height: 16rem;
+  width: 12rem;
+  min-width: 12rem;
+  background: white;
+  cursor: pointer;
+}
+
+.card img {
+  border-top-left-radius: 5%;
+  border-top-right-radius: 5%;
+  width: 12rem;
+  height: 10rem;
+}
+
+.btn {
+  border: 1px solid black;
+  font-size: 2rem;
+  padding: 0.5em 1em;
+  border: none;
+  border-radius: 10px;
+  color: white;
+  cursor: pointer;
+  background-color: transparent;
+  border: 2px solid white;
+}
+
+.btn:hover {
+  font-weight: bold;
+  background-color: transparent;
+}
+
+.battle {
+  font-size: 5rem;
+}

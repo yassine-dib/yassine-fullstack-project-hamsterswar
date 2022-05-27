@@ -1,0 +1,71 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.card {
+  box-shadow: 0 0 10px 5px rgba(53, 35, 35, 0.568);
+  border-radius: 5%;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  height: 22rem;
+  width: 16rem;
+  min-width: 12rem;
+  background: transparent;
+}
+
+.card img {
+  border-top-left-radius: 5%;
+  border-top-right-radius: 5%;
+  width: 16rem;
+  height: 10rem;
+  object-fit: cover;
+}
+
+.card__body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0.3rem;
+  flex-grow: 1;
+  background: transparent;
+}
+
+.card__section__details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  margin: 0.5rem;
+}
+
+.card__section__details span {
+  font-weight: bold;
+}
+
+.card__title {
+  line-height: 1.2rem;
+  margin: 0.5rem;
+}
+
+.card__delete {
+  width: 6rem;
+  height: 2rem;
+  border: none;
+  border-radius: 5% 50% 5% 50%;
+  background-color: rgba(203, 37, 37, 0.632);
+  font-size: 1rem;
+  font-weight: light;
+  cursor: pointer;
+}
+
+.card__delete:hover {
+  border: none;
+  background-color: transparent;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+}

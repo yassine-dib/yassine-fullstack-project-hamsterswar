@@ -1,0 +1,47 @@
+.wrapper-gallery h2 {
+  text-align: center;
+  margin-top: 2em;
+}
+
+.wrapper-gallery p {
+  line-height: 1.5em;
+  text-align: center;
+  font-size: 1.2em;
+}
+
+.gallery button {
+  border-style: none;
+  width: 10em;
+  height: 5vh;
+  background-color: black;
+  color: white;
+  position: relative;
+}
+.gallery button:hover {
+  background-color: #d04a4a;
+  border: solid;
+}
+
+img {
+  width: 27em;
+  height: 21em;
+  overflow: hidden;
+}
+
+.grid p {
+  font-size: 1em;
+}
+
+.hamsterinfo {
+  justify-content: center;
+  text-align: center;
+  margin: 2em;
+  border-style: solid;
+  padding: 1em;
+  margin: 0 auto;
+  background-color: white;
+}
+
+.matchwinners-link:hover {
+  color: rgb(218, 133, 29);
+}

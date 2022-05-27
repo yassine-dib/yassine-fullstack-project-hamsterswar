@@ -1,0 +1,20 @@
+.app {
+  display: grid;
+  background-color: #4d7d38;
+}
+
+.app img {
+  width: 20em;
+}
+
+.app nav a {
+  margin: 2.2em;
+  font-weight: bold;
+  color: black;
+  text-decoration: none;
+  font-size: 1.2em;
+}
+.app header {
+  border-bottom: 2px solid rgb(139, 13, 13);
+  margin-bottom: 1em;
+}
