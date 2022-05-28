@@ -1,0 +1,22 @@
+- jag har skapat ett fullstackprojekt
+
+- jag har konstruerad projectet så att jag ska kunna använda backend-delen som webbserver. Backend servar statiska resurser, API-data och de byggda frontend-filerna
+
+- jag har gjort en design på frontend-appen
+
+- appen kan skicka request till API:et och kunna visa någon data
+
+- jag har skapat Router-länkar, <Link /> Med React
+
+- jag har Visa den hamster som vunnit mest. jag har räknat (antal vinster) - (antal förluster)
+
+- jah har skapat en function som Användaren ska klicka för att rösta på den sötaste
+  När man röstat mer information om hamstern visas,
+  - ockso jag har visat hur många vinster och förluster den har.
+- jag har gjort att när användaren klickar för att rösta ska båda hamster-objekten uppdateras:
+  vinnaren får +1 vinst och förloraren +1 förlust.
+- och jag har visat hur många vinster och förluster respektive hamster har
+- jag har gjort att man kan lägga till en ny hamster via ett formulär<input>. Formuläret använda validering.
+- jag har skapt en fanction som man ska kunna ta bort en hamster från galleriet.
+- i Galleri
+  sida appen visa alla hamstrars namn och bild, i ett CSS grid
