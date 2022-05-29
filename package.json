@@ -4,9 +4,13 @@
   "version": "0.0.0",
   "type": "module",
   "engines": {
-    "node": "16.x"
+    "node": "v16.14.0"
   },
   "scripts": {
+    "postinstall": "tsc",
+    "watch-node": "nodemon dist/index.js",
+    "watch-ts": "tsc -w",
+    "deploy": "git add . && git commit -m Heroku && git push heroku master",
     "start": "node backend/server.js",
     "dev": "vite",
     "build": "cd frontend && tsc && vite build",
