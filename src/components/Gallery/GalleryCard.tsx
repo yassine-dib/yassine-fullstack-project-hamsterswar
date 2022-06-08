@@ -19,10 +19,7 @@ const HamsterCard = ({ hamster }: Props) => {
       <section>
         <div className="hamsterinfo">
           {hamster.imgName && (
-            <img
-              src={`http://localhost:1515/img/${hamster.imgName}`}
-              alt="Bild på hamster"
-            />
+            <img src={`/img/${hamster.imgName}`} alt="Bild på hamster" />
           )}
           {hamster.name}
           <p>
