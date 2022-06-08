@@ -12,7 +12,7 @@ const __dirname = path.dirname(__filename);
 
 // Konfiguration
 const PORT = process.env.PORT || 1515;
-const distPath = path.join(__dirname, "/../frontend/dist/");
+const distPath = path.join(__dirname, "/../dist/");
 console.log("distpath:", distPath);
 
 //Middleware
