@@ -1,6 +1,7 @@
 import { FormEvent, useState } from "react";
 import { useRecoilState } from "recoil";
 import allHamsters from "../../Atoms/allHamsters";
+import { fixUrl } from "../../utils";
 // import { isValidElement, useState } from "react";
 
 import {
@@ -62,9 +63,12 @@ const AddHamster = () => {
     data: any
   ) => {
     e.preventDefault();
+    if (!nameIsValid) {
+    }
+
     addOne(data);
 
-    const response = await fetch("/hamsters");
+    const response = await fetch(fixUrl("/hamsters"));
     const newData = await response.json();
     setHamsters(newData);
   };
@@ -72,45 +76,64 @@ const AddHamster = () => {
   return (
     <div>
       <section>
-        <form onSubmit={(e) => onClickPrevDefault(e, data)}>
-          <input
-            type="text"
-            placeholder="Name"
-            value={name}
-            onChange={handleNameChange}
-            style={{ border: validNameBorder }}
-          />
-          <input
-            type="number"
-            // 3lch makaybanch age f place holdere
-            placeholder="Age"
-            value={age}
-            onChange={handleAgeChange}
-            style={{ border: validAgeBorder }}
-          />
-          <input
-            type="text"
-            placeholder="Food"
-            value={favFood}
-            onChange={handleFaveFoodChange}
-            style={{ border: validFoodBorder }}
-          />
-          <input
-            type="text"
-            placeholder="Loves"
-            value={loves}
-            onChange={handleLovesChange}
-            style={{ border: validLovesBorder }}
-          />
-          <input
-            type="text"
-            placeholder="Picture"
-            value={imgName}
-            onChange={handleImgNameChange}
-          />
-          <button type="submit" disabled={!formIsValid}>
-            🖊️
-          </button>
+        <form
+          className="add-hamster"
+          onSubmit={(e) => onClickPrevDefault(e, data)}
+        >
+          <div className="form-group">
+            <input
+              type="text"
+              placeholder="Name"
+              value={name}
+              onChange={handleNameChange}
+              style={{ border: validNameBorder }}
+            />
+            {!nameIsValid && <span className="error">name is required!</span>}
+          </div>
+          <div className="form-group">
+            <input
+              type="number"
+              // 3lch makaybanch age f place holdere
+              placeholder="Age"
+              value={age}
+              onChange={handleAgeChange}
+              style={{ border: validAgeBorder }}
+            />
+            {!ageIsValid && <span className="error">age is required!</span>}
+          </div>
+          <div className="form-group">
+            <input
+              type="text"
+              placeholder="Food"
+              value={favFood}
+              onChange={handleFaveFoodChange}
+              style={{ border: validFoodBorder }}
+            />
+            {!favFoodIsValid && (
+              <span className="error">favorit food is required!</span>
+            )}
+          </div>
+          <div className="form-group">
+            <input
+              type="text"
+              placeholder="Loves"
+              value={loves}
+              onChange={handleLovesChange}
+              style={{ border: validLovesBorder }}
+            />
+            {!lovesIsValid && <span className="error">Loves is required!</span>}
+          </div>
+          <div className="form-group">
+            <input
+              type="text"
+              placeholder="Picture"
+              value={imgName}
+              onChange={handleImgNameChange}
+            />
+            <button type="submit" disabled={!formIsValid}>
+              🖊️
+            </button>
+          </div>
         </form>
       </section>
     </div>

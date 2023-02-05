@@ -2,7 +2,7 @@ import AddHamster from "./AddHamsters";
 import GalleryCard from "./GalleryCard";
 import { fixUrl, allImgNames } from "../../utils";
 import styles from "../../styles/gallery.module.css";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { useRecoilState } from "recoil";
 import allHamsters from "../../Atoms/allHamsters";
 import { NewHams } from "../../models/NewHams";
@@ -10,6 +10,7 @@ import { NewHams } from "../../models/NewHams";
 const Gallery = () => {
   const [data, setData] = useRecoilState<NewHams[]>(allHamsters);
   const [toggle, setToggle] = useState<boolean>(false);
+
   useEffect(() => {
     async function getData() {
       const response: Response = await fetch(fixUrl("/hamsters/"));
@@ -18,8 +19,8 @@ const Gallery = () => {
       setData(apiData as NewHams[]);
     }
     getData();
-    console.log(data);
   }, []);
+
   return (
     <div className={styles.container}>
       <header className={styles.header}>

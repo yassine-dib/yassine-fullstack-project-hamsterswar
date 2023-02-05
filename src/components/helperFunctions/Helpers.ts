@@ -1,8 +1,9 @@
 import { Data, NewHams } from "../../models/NewHams";
+import { fixUrl } from "../../utils";
 
 const getAll = (data: string) => {
   try {
-    fetch("/Hamsters", {
+    fetch(fixUrl("/hamsters"), {
       method: "GET",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
@@ -14,7 +15,7 @@ const getAll = (data: string) => {
 
 const getRandom = (data: string) => {
   try {
-    fetch("/Hamsters/random", {
+    fetch(fixUrl("/hamsters/random"), {
       method: "GET",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
@@ -26,7 +27,7 @@ const getRandom = (data: string) => {
 
 const getCutest = (data: string) => {
   try {
-    fetch("/Hamsters/cutest", {
+    fetch(fixUrl("/hamsters/cutest"), {
       method: "GET",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
@@ -39,7 +40,7 @@ const getCutest = (data: string) => {
 // ADD A NEW HAMSTER
 const addOne = (data: Data) => {
   try {
-    fetch("/hamsters", {
+    fetch(fixUrl("/hamsters"), {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
@@ -55,7 +56,7 @@ const addOne = (data: Data) => {
 
 // DELETE
 const DeleteHamster = (id: string) => {
-  fetch(`/hamsters/${id}`, {
+  fetch(fixUrl(`/hamsters/${id}`), {
     method: "DELETE",
     headers: { "Content-Type": "application/json" },
   });
@@ -63,7 +64,7 @@ const DeleteHamster = (id: string) => {
 
 const changeData = (data: string) => {
   try {
-    fetch("/:id", {
+    fetch(fixUrl("/:id"), {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
@@ -74,7 +75,7 @@ const changeData = (data: string) => {
 };
 
 const updateMatch = async (winner: NewHams, loser: NewHams) => {
-  await fetch(`hamsters/${winner.id}`, {
+  await fetch(fixUrl(`/hamsters/${winner.id}`), {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
@@ -85,7 +86,7 @@ const updateMatch = async (winner: NewHams, loser: NewHams) => {
     }),
   });
 
-  await fetch(`hamsters/${loser.id}`, {
+  await fetch(fixUrl(`/hamsters/${loser.id}`), {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",

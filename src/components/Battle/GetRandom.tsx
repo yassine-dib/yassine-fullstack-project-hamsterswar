@@ -1,8 +1,9 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { NewHams } from "../../models/NewHams";
 import styles from "../../styles/getrandom.module.css";
 import { updateMatch } from "../helperFunctions/Helpers";
 import Card from "./card";
+import { fixUrl } from "../../utils";
 
 const GetRandom = () => {
   const [competitorOne, setCompetitorOne] = useState<NewHams | null>(null);
@@ -12,52 +13,86 @@ const GetRandom = () => {
 
   useEffect(() => {
     // Hämta två hamstrar när sidan laddas
-    sendRequestOne(setCompetitorOne);
-    sendRequestTwo(setCompetitorTwo);
-  }, [setCompetitorOne, setCompetitorTwo]);
+    async function getData() {
+      const secondResponse = await fetch(fixUrl("/hamsters/random"));
+      const competitorOne = await secondResponse.json();
+      setCompetitorOne(competitorOne);
+    }
+    getData();
+  }, []);
 
   useEffect(() => {
-    // Kollar om ingen hamster laddas eller om det är samma
-    if (competitorOne === null || competitorTwo === null) return;
-    else if (competitorOne.id === competitorTwo.id) {
-      sendRequestTwo(setCompetitorTwo);
-      console.log("Same hamster, try again");
+    // Hämta två hamstrar när sidan laddas
+    async function getData() {
+      const secondResponse = await fetch(fixUrl("/hamsters/random"));
+      const competitorTwo = await secondResponse.json();
+      setCompetitorTwo(competitorTwo);
     }
-  }, [competitorOne, competitorTwo]);
+    getData();
+  }, []);
 
   const newGame = () => {
     // Startar ett nytt spel
     setOverlay(false);
-    sendRequestOne(setCompetitorOne);
-    sendRequestTwo(setCompetitorTwo);
+    sendRequest(setCompetitorOne);
+    sendRequest(setCompetitorTwo);
     setMatchPlayed(true);
   };
 
-  const fetchStats = async (
-    winner: NewHams,
-    loser: NewHams,
-    setWinnerData: (arg0: any) => void,
-    setLoserData: (arg0: any) => void
-  ) => {
-    const winResponse = await fetch(`/hamsters/${winner.id}`);
-    const winnerData = await winResponse.json();
+  const fetchStats = useCallback(
+    async (
+      winner: NewHams,
+      loser: NewHams,
+      setWinnerData: (arg0: any) => void,
+      setLoserData: (arg0: any) => void
+    ) => {
+      const winResponse = await fetch(fixUrl(`/hamsters/${winner.id}`));
+      const winnerData = await winResponse.json();
 
-    setWinnerData(winnerData);
+      setWinnerData(winnerData);
 
-    const loserResponse = await fetch(`/hamsters/${loser.id}`);
-    const loserData = await loserResponse.json();
+      const loserResponse = await fetch(fixUrl(`/hamsters/${loser.id}`));
+      const loserData = await loserResponse.json();
 
-    setLoserData(loserData);
-  };
+      setLoserData(loserData);
+    },
+    []
+  );
 
-  const handleClick = async (
-    winner: NewHams,
-    loser: NewHams,
-    setWinnerData: (arg0: NewHams) => void,
-    setLoserData: (arg1: NewHams) => void
-  ) => {
-    // Kollar om hamstern är klickbar
-    if (matchPlayed) {
+  const updateMatch = useCallback(async (winner: NewHams, loser: NewHams) => {
+    await fetch(fixUrl(`/hamsters/${winner.id}`), {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        wins: winner.wins + 1,
+        games: winner.games + 1,
+      }),
+    });
+
+    await fetch(fixUrl(`/hamsters/${loser.id}`), {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        wins: loser.wins,
+        defeats: loser.defeats + 1,
+        games: loser.games + 1,
+      }),
+    });
+  }, []);
+
+  const handleClick = useCallback(
+    async (
+      winner: NewHams,
+      loser: NewHams,
+      setWinnerData: (arg0: NewHams) => void,
+      setLoserData: (arg1: NewHams) => void
+    ) => {
+      // Kollar om hamstern är klickbar
+      if (!matchPlayed) return;
       // Väntar på att hamsterns stats uppdateras
       await updateMatch(winner, loser);
       // Väntar på att hamsterns nya stats hämtas
@@ -68,10 +103,9 @@ const GetRandom = () => {
 
       // Gör så att hamstern inte är klickbar längre
       setMatchPlayed(false);
-    } else {
-      return;
-    }
-  };
+    },
+    [updateMatch, fetchStats]
+  );
 
   const handleRandom = () => {
     newGame();
@@ -82,20 +116,20 @@ const GetRandom = () => {
       <section className={styles.wrapper}>
         {competitorOne && competitorTwo ? (
           <div
-            onClick={() =>
+            onClick={() => {
               handleClick(
                 competitorOne,
                 competitorTwo,
                 setCompetitorOne,
                 setCompetitorTwo
-              )
-            }
+              );
+            }}
             className={styles.card}
           >
             {competitorOne.imgName &&
             competitorOne.imgName.startsWith("hamster") ? (
               <img
-                src={`/img/${competitorOne.imgName}`}
+                src={fixUrl(`/img/${competitorOne.imgName}`)}
                 alt={competitorOne.name}
                 key={competitorOne.id}
                 className="card__img"
@@ -126,20 +160,20 @@ const GetRandom = () => {
 
         {competitorTwo && competitorOne ? (
           <div
-            onClick={() =>
+            onClick={() => {
               handleClick(
                 competitorTwo,
                 competitorOne,
                 setCompetitorTwo,
                 setCompetitorOne
-              )
-            }
+              );
+            }}
             className={styles.card}
           >
             {competitorTwo.imgName &&
             competitorTwo.imgName.startsWith("hamster") ? (
               <img
-                src={`/img/${competitorTwo.imgName}`}
+                src={fixUrl(`/img/${competitorTwo.imgName}`)}
                 alt={competitorTwo.name}
                 key={competitorTwo.id}
                 className="card__img"
@@ -175,16 +209,10 @@ const GetRandom = () => {
 };
 
 // Hämta hamstrar
-async function sendRequestOne(setCompetitor: any) {
-  const firstResponse = await fetch("hamsters/random");
+async function sendRequest(setCompetitor: any) {
+  const firstResponse = await fetch(fixUrl("/hamsters/random"));
   const competitorOne = await firstResponse.json();
   setCompetitor(competitorOne);
-}
-
-async function sendRequestTwo(setCompetitor: any) {
-  const secondResponse = await fetch("hamsters/random");
-  const competitorTwo = await secondResponse.json();
-  setCompetitor(competitorTwo);
 }
 
 export default GetRandom;
