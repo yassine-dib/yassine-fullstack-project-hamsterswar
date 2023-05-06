@@ -1,13 +1,13 @@
 import { useCallback, useEffect, useState } from "react";
 import { NewHams } from "../../models/NewHams";
 import styles from "../../styles/getrandom.module.css";
-import { updateMatch } from "../helperFunctions/Helpers";
 import Card from "./card";
 import { fixUrl } from "../../utils";
 
 const GetRandom = () => {
   const [competitorOne, setCompetitorOne] = useState<NewHams | null>(null);
   const [competitorTwo, setCompetitorTwo] = useState<NewHams | null>(null);
+  const [winnerHam, setWinnerHam] = useState<null | NewHams>(null);
   const [matchPlayed, setMatchPlayed] = useState<boolean>(true);
   const [overlay, setOverlay] = useState<boolean>(false);
 
@@ -36,6 +36,7 @@ const GetRandom = () => {
     setOverlay(false);
     sendRequest(setCompetitorOne);
     sendRequest(setCompetitorTwo);
+    setWinnerHam(null);
     setMatchPlayed(true);
   };
 
@@ -55,6 +56,18 @@ const GetRandom = () => {
       const loserData = await loserResponse.json();
 
       setLoserData(loserData);
+
+      // compare results
+      const hamsOneResult = winnerData.wins - winnerData.defeats;
+      const hamsTwoResult = loserData.wins - loserData.defeats;
+
+      if (hamsOneResult > hamsTwoResult) {
+        // hamsOne wins
+        setWinnerHam(winnerData);
+      } else {
+        // hamsTwo wins
+        setWinnerHam(loserData);
+      }
     },
     []
   );
@@ -201,9 +214,22 @@ const GetRandom = () => {
         )}
       </section>
 
-      <button onClick={() => handleRandom()} className={styles.btn}>
-        Battle!
-      </button>
+      {winnerHam != null ? (
+        <div className={styles.winninghamster}>
+          <p>
+            {" "}
+            <b>The winner is {winnerHam.name}</b>
+            <br /> Total victory-{winnerHam.wins} <br />
+            Total defeats-{winnerHam.defeats} <br />
+            Total matches-{winnerHam.games}{" "}
+          </p>
+          <button className={styles.btn} onClick={handleRandom}>
+            Start a new battle!
+          </button>
+        </div>
+      ) : (
+        <p></p>
+      )}
     </div>
   );
 };
@@ -216,17 +242,3 @@ async function sendRequest(setCompetitor: any) {
 }
 
 export default GetRandom;
-
-// const [show, setShow] =  useState({});                                                                                                      return (
-//   <>                                                                                                                                                                                                        <p>
-//      <button onClick={() => setShow(!show)}>this is the cutes hamster</button>
-//     {show &&
-//     <div>
-//       <p>hamster age: {hamster.age}</p>
-//       <p>hamster favorite food: {hamster.favFood}</p>
-//       <p>hamster lovs to: {hamster.loves}</p>
-//       <p>hamster wins: {hamster.wins}</p>
-//       <p>hamster defeats: {hamster.defeats}</p>
-//       <p> hamster games: {hamster.games}</p>
-//     </div>}
-//     </p>                                                                                                                                                                                                                 </>
