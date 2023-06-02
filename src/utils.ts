@@ -4,7 +4,7 @@ function fixUrl(url: string): string {
     return "http://localhost:1515" + url;
   } else {
     console.log("PRODUCTION MODE");
-    return url;
+    return "https://caramel-caster-388616.oa.r.appspot.com" + url;
   }
 }
 export { fixUrl };

@@ -1,6 +1,7 @@
 .app {
   display: grid;
-  background-color: #4d7d38;
+  /* background-color: #4d7d38; */
+  background-image: url(../src/styles/11unsplash.jpg);
 }
 
 .app img {
@@ -10,12 +11,12 @@
 .app nav a {
   margin: 2.2em;
   font-weight: bold;
-  color: black;
+  color: rgb(228, 223, 223);
   text-decoration: none;
   font-size: 1.2em;
 }
 .app header {
-  border-bottom: 2px solid rgb(139, 13, 13);
+  border-bottom: 2px solid rgb(9, 1, 1);
   margin-bottom: 1em;
 }
 
@@ -29,6 +30,6 @@ form.add-hamster {
   display: flex;
   flex-direction: column;
 }
-.form-group span.error{
-  color: #4f1d1d;
+.form-group span.error {
+  color: #e7dcdc;
 }

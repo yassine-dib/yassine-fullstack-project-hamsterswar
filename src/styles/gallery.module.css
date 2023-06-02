@@ -1,25 +1,23 @@
 .container {
-    text-align: center;
-  }
-  
-  .wrapper {
-    padding-top: 5rem;
-    margin: 2rem;
-    display: grid;
-    gap: 4rem;
-    grid-template-columns: repeat(auto-fit, minmax(14rem, 17rem));
-    justify-content: center;
-    align-items: center;
-    justify-items: center;
-  }
-  
-  .container header h3 {
-    margin: 2rem;
-  }
-  
-  .main {
-    min-height: 100vh;
-    width: 100vw;
-  }
-  
-  /* brb, sambon kräks och barnet behöver lite i magen */
+  text-align: center;
+}
+
+.wrapper {
+  padding-top: 5rem;
+  margin: 2rem;
+  display: grid;
+  gap: 4rem;
+  grid-template-columns: repeat(auto-fit, minmax(14rem, 17rem));
+  justify-content: center;
+  align-items: center;
+  justify-items: center;
+}
+
+.container header h3 {
+  margin: 2rem;
+}
+
+.main {
+  min-height: 100vh;
+  width: 100vw;
+}
