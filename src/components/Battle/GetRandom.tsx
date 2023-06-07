@@ -79,6 +79,7 @@ const GetRandom = () => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
+        defeats: loser.defeats,
         wins: winner.wins + 1,
         games: winner.games + 1,
       }),
@@ -214,8 +215,8 @@ const GetRandom = () => {
         )}
       </section>
 
-      {winnerHam != null ? (
-        <div className={styles.winninghamster}>
+      <div className={styles.winninghamster}>
+        {winnerHam != null ? (
           <p>
             {" "}
             <b>The winner is {winnerHam.name}</b>
@@ -223,13 +224,13 @@ const GetRandom = () => {
             Total defeats-{winnerHam.defeats} <br />
             Total matches-{winnerHam.games}{" "}
           </p>
-          <button className={styles.btn} onClick={handleRandom}>
-            Start a new battle!
-          </button>
-        </div>
-      ) : (
-        <p></p>
-      )}
+        ) : (
+          <p></p>
+        )}
+        <button className={styles.btn} onClick={handleRandom}>
+          Start a new battle!
+        </button>
+      </div>
     </div>
   );
 };
