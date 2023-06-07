@@ -10,8 +10,7 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
-    "start": "node backend/server.js",
-    "start.backend": "node backend/server.js"
+    "start": "node backend/server.js"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^1.8.1",

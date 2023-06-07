@@ -3,7 +3,7 @@ import express from "express";
 import path from "path";
 import cors from "cors";
 import hamsters from "./routes/hamsters.js";
-import winners from "./routes/winners.js";
+import winner from "./routes/winner.js";
 import losers from "./routes/losers.js";
 
 const app = express();
@@ -29,7 +29,7 @@ app.use((req, _res, next) => {
 
 // Endpoints
 // api for hamsters
-app.use("/hamsters/cutest", winners);
+app.use("/hamsters/cutest", winner);
 app.use("/hamsters/losers", losers);
 app.use("/hamsters", hamsters);
 // app.use("/matches", matches);

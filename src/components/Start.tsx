@@ -9,10 +9,8 @@ const Start = () => {
   useEffect(() => {
     async function getHamsterts() {
       const response: Response = await fetch(fixUrl("/hamsters/cutest"));
-      const cutestsHamsters: NewHams[] = await response.json();
-      const sweetest =
-        cutestsHamsters[Math.floor(Math.random() * cutestsHamsters.length)];
-      setCutest(sweetest);
+      const cutestsHamster: NewHams = await response.json();
+      setCutest(cutestsHamster);
     }
     getHamsterts();
   }, []);
