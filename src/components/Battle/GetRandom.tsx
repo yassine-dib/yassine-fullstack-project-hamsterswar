@@ -79,7 +79,7 @@ const GetRandom = () => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        defeats: loser.defeats,
+        defeats: winner.defeats,
         wins: winner.wins + 1,
         games: winner.games + 1,
       }),
